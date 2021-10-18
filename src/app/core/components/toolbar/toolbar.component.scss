@@ -1,0 +1,17 @@
+@import 'src/scss/abstracts/variables';
+
+:host {
+  display: flex;
+  align-items: center;
+  height: $toolbar-height;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  &::ng-deep > * + * {
+    margin-left: 1rem;
+  }
+}

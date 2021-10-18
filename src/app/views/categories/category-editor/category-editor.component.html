@@ -1,0 +1,33 @@
+<app-card>
+  <app-card-header>
+    <h1 class="mw-50">
+      <span class="text-truncate">
+        {{ mode === 'create' ? 'New Category' : 'Edit Category' }}
+      </span>
+    </h1>
+  </app-card-header>
+  <app-card-body [formGroup]="form">
+    <div class="form-group">
+      <label class="required" for="name">Name</label>
+      <input id="name" type="text" class="form-control" formControlName="name" />
+    </div>
+
+    <button class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Save</button>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <button
+    class="btn btn-primary"
+    routerLink=".."
+    *ngIf="mode === 'create'; else showEditCategoryActions"
+  >
+    Cancel
+  </button>
+
+  <ng-template #showEditCategoryActions>
+    <button class="btn btn-primary" routerLink="details">View</button>
+    <button class="btn btn-primary" routerLink="..">Cancel</button>
+    <button class="btn btn-danger" (click)="onDeleteCategory(id.value)">Delete</button>
+  </ng-template>
+</ng-template>

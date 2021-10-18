@@ -1,0 +1,39 @@
+@import 'variables';
+
+:host ::ng-deep {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $white;
+  border-radius: $card-border-radius;
+  box-shadow: $card-box-shadow;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    line-height: 1;
+    padding: $card-padding-y $card-padding-x;
+  }
+
+  .card-header + .card-body-container > .card-body {
+    padding: 0 $card-padding-x $card-padding-y;
+  }
+
+  .card-body-container {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  .card-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    max-width: 100%;
+    overflow-y: auto;
+    padding: $card-padding-y $card-padding-x;
+  }
+}

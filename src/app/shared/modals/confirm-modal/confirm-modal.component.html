@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    {{ title }}
+  </h4>
+
+  <button class="btn btn-transparent btn-icon ml-auto text-dark" (click)="onClose()">
+    <fa-icon [icon]="icons.faTimes"></fa-icon>
+  </button>
+</div>
+
+<div class="modal-body-container">
+  <div class="modal-body text-center">
+    <fa-icon class="d-block text-danger mb-4" size="2x" [icon]="icons.faTrashAlt"></fa-icon>
+
+    <p>{{ content }}</p>
+
+    <div class="d-flex justify-content-center w-100 mt-6">
+      <button class="btn btn-light mr-6" (click)="onClose()">Cancel</button>
+      <button class="btn btn-danger" (click)="onClose(true)">Delete</button>
+    </div>
+  </div>
+</div>

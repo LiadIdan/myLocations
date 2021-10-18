@@ -1,0 +1,57 @@
+<app-card>
+  <app-card-body class="p-0" *ngIf="categories$ | async as categories">
+    <ng-container *ngIf="!(loading$ | async); else showLoader">
+      <table
+        class="table table-hover table-borderless table-striped mb-0"
+        *ngIf="categories.length; else showEmptyMessage"
+      >
+        <thead>
+          <tr class="border-bottom">
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            role="button"
+            [class.table-active]="category.id === selectedId"
+            (click)="onSelectCategory(category.id)"
+            *ngFor="let category of categories; let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ category.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <ng-template #showEmptyMessage>
+      <div class="d-flex flex-center h-100">
+        <p class="text-muted">No categories found</p>
+      </div>
+    </ng-template>
+
+    <ng-template #showLoader>
+      <div class="d-flex flex-center h-100">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <button
+    class="btn btn-primary"
+    routerLink="new"
+    *ngIf="!selectedId; else showSelectedCategoryActions"
+  >
+    New Category
+  </button>
+
+  <ng-template #showSelectedCategoryActions>
+    <button class="btn btn-primary" [routerLink]="[selectedId, 'details']">View</button>
+    <button class="btn btn-primary" [routerLink]="selectedId">Edit</button>
+    <button class="btn btn-danger" (click)="onDeleteCategory()">Delete</button>
+  </ng-template>
+</ng-template>

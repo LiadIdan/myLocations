@@ -1,0 +1,12 @@
+.table {
+  tr th:first-child,
+  tr td:first-child {
+    padding-left: 3rem;
+    width: 8%;
+  }
+
+  tr th:last-child,
+  tr td:last-child {
+    padding-right: 3rem;
+  }
+}

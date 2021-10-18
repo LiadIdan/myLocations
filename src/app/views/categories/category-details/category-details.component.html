@@ -1,0 +1,28 @@
+<app-card>
+  <app-card-header>
+    <h1>Category Details</h1>
+  </app-card-header>
+
+  <app-card-body>
+    <ng-container *ngIf="category; else showLoader">
+      <ul>
+        <li>
+          <strong>Name</strong>
+          <span class="text-truncate">{{ category.name }}</span>
+        </li>
+      </ul>
+    </ng-container>
+
+    <ng-template #showLoader>
+      <div class="d-flex flex-center h-100">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <button class="btn btn-primary" routerLink="..">Edit</button>
+  <button class="btn btn-primary" routerLink="../..">View List</button>
+  <button class="btn btn-danger" (click)="onDeleteCategory()">Delete</button>
+</ng-template>

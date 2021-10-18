@@ -26,13 +26,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/scss/index.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss/abstracts", "node_modules/bootstrap/scss/mixins"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -40,8 +38,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -94,18 +92,19 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/scss/index.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss/abstracts", "node_modules/bootstrap/scss/mixins"]
+            },
             "scripts": []
           }
         }
       }
     }
   },
-  "defaultProject": "my-locations"
+  "defaultProject": "my-locations",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
