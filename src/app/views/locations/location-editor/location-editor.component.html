@@ -1,0 +1,77 @@
+<app-card>
+  <app-card-header>
+    <h1 class="mw-50">
+      <span class="text-truncate">
+        {{ mode === 'create' ? 'New Location' : 'Edit Location' }}
+      </span>
+    </h1>
+  </app-card-header>
+  <app-card-body [formGroup]="form">
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xxl-4">
+        <div class="form-group">
+          <label class="required" for="name">Name</label>
+          <input id="name" type="text" class="form-control" formControlName="name" />
+          <app-form-control-errors controlName="name"></app-form-control-errors>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 col-xxl-4">
+        <div class="form-group">
+          <label class="required" for="address">Address</label>
+          <input id="address" type="text" class="form-control" formControlName="address" />
+          <app-form-control-errors controlName="address"></app-form-control-errors>
+        </div>
+      </div>
+
+      <div class="col-12 col-xxl-8">
+        <div class="form-group">
+          <label class="required" for="categoryIds">Categories</label>
+          <ng-select
+            labelForId="categoryIds"
+            formControlName="categoryIds"
+            bindValue="id"
+            bindLabel="name"
+            [multiple]="true"
+            [items]="categories$ | async"
+          >
+          </ng-select>
+          <app-form-control-errors controlName="categoryIds"></app-form-control-errors>
+        </div>
+      </div>
+
+      <div class="col-12 col-xxl-8">
+        <div class="map-container mb-4">
+          <google-map
+            width="100%"
+            height="100%"
+            class="w-100 h-100"
+            [options]="mapOptions"
+            (mapClick)="onSetCoordinates($event)"
+            *ngIf="googleMapsApiLoaded$ | async"
+          >
+            <map-marker [position]="coordinates.value" *ngIf="coordinates.value"></map-marker>
+          </google-map>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Save</button>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <button
+    class="btn btn-primary"
+    routerLink=".."
+    *ngIf="mode === 'create'; else showEditLocationActions"
+  >
+    Cancel
+  </button>
+
+  <ng-template #showEditLocationActions>
+    <button class="btn btn-primary" routerLink="details">View</button>
+    <button class="btn btn-primary" routerLink="..">Cancel</button>
+    <button class="btn btn-danger" (click)="onDeleteLocation(id.value)">Delete</button>
+  </ng-template>
+</ng-template>

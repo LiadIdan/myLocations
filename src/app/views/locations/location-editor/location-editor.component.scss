@@ -1,0 +1,11 @@
+@import 'variables';
+@import 'breakpoints';
+
+.map-container {
+  height: 300px;
+  background-color: $gray-50;
+
+  @include media-breakpoint-up(xl) {
+    height: 380px;
+  }
+}

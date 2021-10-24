@@ -5,6 +5,7 @@ import { map, catchError, switchMap } from 'rxjs/operators';
 
 import * as categoryActions from './actions';
 import { CategoriesService } from '@app/core/services';
+import { fromLocations } from '@app/store';
 
 @Injectable()
 export class CategoryEffects {
@@ -48,6 +49,13 @@ export class CategoryEffects {
       switchMap(({ id }) => this._categoriesService.deleteCategory(id)),
       map((id) => categoryActions.deleteCategorySuccess({ id })),
       catchError((error) => of(categoryActions.deleteCategoryFailure({ error })))
+    )
+  );
+
+  deleteCategorySuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(categoryActions.deleteCategory),
+      map(({ id }) => fromLocations.removeDeletedCategoryId({ categoryId: id }))
     )
   );
 

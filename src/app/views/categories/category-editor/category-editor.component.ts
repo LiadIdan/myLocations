@@ -2,7 +2,6 @@ import { CdkPortal } from '@angular/cdk/portal';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +10,6 @@ import { filter } from 'rxjs/operators';
 import { LayoutService } from '@app/core/services';
 import { CoreState, fromCategories } from '@app/store';
 import { Category } from '@app/shared/models';
-import { ConfirmModalComponent } from '@app/shared/modals';
 
 @Component({
   selector: 'app-category-editor',
@@ -34,7 +32,6 @@ export class CategoryEditorComponent implements OnInit, OnDestroy {
     private _actions$: Actions,
     private _fb: FormBuilder,
     private _layoutService: LayoutService,
-    private _modalService: NgbModal,
     private _router: Router,
     private _route: ActivatedRoute,
     private _store: Store<CoreState>
@@ -82,12 +79,9 @@ export class CategoryEditorComponent implements OnInit, OnDestroy {
   }
 
   onDeleteCategory(id: string): void {
-    const ref = this._modalService.open(ConfirmModalComponent, { centered: true });
+    const modalRef = this._layoutService.openDeleteConfirmationModal('category');
 
-    ref.componentInstance.title = 'Delete category';
-    ref.componentInstance.content = 'Are you sure you want to permanently delete this category?';
-
-    ref.closed.subscribe((confirmed) => {
+    modalRef.closed.subscribe((confirmed) => {
       if (confirmed) {
         this._store.dispatch(fromCategories.deleteCategory({ id }));
       }

@@ -1,0 +1,58 @@
+<app-card>
+  <app-card-header>
+    <h1>Location Details</h1>
+  </app-card-header>
+
+  <app-card-body>
+    <ng-container *ngIf="location; else showLoader">
+      <div class="row">
+        <div class="col-12 col-lg-6 col-xxl-4">
+          <ul>
+            <li>
+              <strong>Name</strong>
+              <span class="text-truncate">{{ location.name }}</span>
+            </li>
+
+            <li>
+              <strong>Address</strong>
+              <span class="text-truncate">{{ location.address }}</span>
+            </li>
+
+            <li>
+              <strong>Categories</strong>
+              <app-location-categories
+                [categoryIds]="location.categoryIds"
+              ></app-location-categories>
+            </li>
+
+            <li class="flex-column align-items-start">
+              <strong class="mb-2">Map</strong>
+              <google-map
+                width="100%"
+                height="400"
+                class="w-100"
+                [options]="mapOptions"
+                [center]="location.coordinates"
+                *ngIf="googleMapsApiLoaded$ | async"
+              >
+                <map-marker [position]="location.coordinates"></map-marker>
+              </google-map>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #showLoader>
+      <div class="d-flex flex-center h-100">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <button class="btn btn-primary" routerLink="..">Edit</button>
+  <button class="btn btn-primary" routerLink="../..">View List</button>
+  <button class="btn btn-danger" (click)="onDeleteLocation()">Delete</button>
+</ng-template>

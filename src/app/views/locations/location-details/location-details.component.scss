@@ -1,0 +1,24 @@
+@import 'variables';
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & + li {
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid $gray-100;
+    }
+
+    strong {
+      color: $black;
+      margin-right: 0.5rem;
+    }
+  }
+}

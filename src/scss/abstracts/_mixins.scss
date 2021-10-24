@@ -1,0 +1,5 @@
+@mixin control-invalid-state {
+  &:not(.novalidate).ng-touched.ng-invalid {
+    @content;
+  }
+}

@@ -5,17 +5,20 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { LoaderComponent } from './components';
+import { FormControlErrorsComponent, LoaderComponent } from './components';
 import { CardComponent, CardBodyDirective, CardHeaderDirective } from './containers';
 import { ConfirmModalComponent } from './modals';
+import { CategoryIdToNamePipe } from './pipes';
 
 const declarations = [ConfirmModalComponent];
 
 const exportableDeclarations = [
+  FormControlErrorsComponent,
   LoaderComponent,
   CardComponent,
   CardBodyDirective,
   CardHeaderDirective,
+  CategoryIdToNamePipe,
 ];
 
 @NgModule({

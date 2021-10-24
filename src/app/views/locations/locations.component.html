@@ -1,0 +1,105 @@
+<app-card>
+  <app-card-body class="p-0" *ngIf="items$ | async as locations">
+    <ng-container *ngIf="!(loading$ | async); else showLoader">
+      <table
+        class="table table-hover table-borderless table-striped mb-0"
+        *ngIf="locations.length; else showEmptyMessage"
+      >
+        <thead>
+          <tr class="border-bottom">
+            <th>#</th>
+            <th
+              class="sortable"
+              [ngClass]="(sortDirection$ | async) ?? ''"
+              (click)="onSort('name')"
+            >
+              <span>Name</span>
+            </th>
+            <th>Address</th>
+            <th>Categories</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let location of locations; let i = index; let isFirst = first">
+            <tr
+              class="font-weight-bolder bg-light"
+              *ngIf="
+                groupByCategoryControl.value &&
+                (isFirst || location.categoryIds[0] !== locations[i - 1].categoryIds[0])
+              "
+            >
+              <td colspan="100%">{{ location.categoryIds[0] | categoryIdToName | async }}</td>
+            </tr>
+            <tr
+              role="button"
+              [class.table-active]="i === selectedItem?.index"
+              [class.table-danger]="!location.categoryIds.length"
+              (click)="onSelectItem(location.id, i)"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ location.name }}</td>
+              <td>{{ location.address }}</td>
+              <td>
+                <app-location-categories
+                  [categoryIds]="location.categoryIds"
+                ></app-location-categories>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <ng-template #showEmptyMessage>
+      <div class="d-flex flex-center h-100">
+        <p class="text-muted">No locations found</p>
+      </div>
+    </ng-template>
+
+    <ng-template #showLoader>
+      <div class="d-flex flex-center h-100">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </app-card-body>
+</app-card>
+
+<ng-template cdkPortal>
+  <div class="custom-control custom-switch">
+    <input
+      id="group"
+      type="checkbox"
+      class="custom-control-input"
+      [formControl]="groupByCategoryControl"
+    />
+    <label class="custom-control-label" for="group">Group by category</label>
+  </div>
+
+  <ng-select
+    bindValue="id"
+    bindLabel="name"
+    placeholder="Select categories"
+    [multiple]="true"
+    [formControl]="selectedCategoriesControl"
+    [items]="categoryOptions$ | async"
+  >
+    <ng-template ng-multi-label-tmp let-items="items">
+      <span class="pl-1 pb-1">{{ items.length }} selected</span>
+    </ng-template>
+  </ng-select>
+
+  <button
+    class="btn btn-primary"
+    routerLink="new"
+    *ngIf="!selectedItem; else showSelectedLocationActions"
+  >
+    New Location
+  </button>
+
+  <ng-template #showSelectedLocationActions>
+    <button class="btn btn-primary" [routerLink]="[selectedItem?.id, 'details']">View</button>
+    <button class="btn btn-primary" [routerLink]="selectedItem?.id">Edit</button>
+    <button class="btn btn-danger" (click)="onDeleteLocation()">Delete</button>
+  </ng-template>
+</ng-template>

@@ -155,9 +155,12 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 $label-font-size: $font-size-lg;
 $label-margin-bottom: 6px;
 
+$input-color: $gray-500;
 $input-border-color: $gray-300;
 
 $input-focus-border-color: $dark-gray;
+
+$input-placeholder-color: $gray-400;
 
 $input-height: 36px;
 
@@ -166,6 +169,24 @@ $card-padding-y: 3rem;
 $card-padding-x: 3rem;
 $card-border-radius: 0.75rem;
 $card-box-shadow: $box-shadow-lg;
+
+// Grid breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);
 
 // Toolbar
 $toolbar-height: 120px;

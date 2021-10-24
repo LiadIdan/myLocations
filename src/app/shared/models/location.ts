@@ -2,11 +2,8 @@ export interface Location {
   id: string;
   name: string;
   address: string;
-  category: string;
-  coordinates: Coordinates;
+  categoryIds: string[];
+  coordinates: google.maps.LatLngLiteral;
 }
 
-export interface Coordinates {
-  lat: number;
-  lng: number;
-}
+export type CreateLocationDto = Omit<Location, 'id'>;

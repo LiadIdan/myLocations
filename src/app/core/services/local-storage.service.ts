@@ -1,14 +1,16 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { WINDOW } from '@app/core/tokens';
-import { Category } from '@app/shared/models';
+import { Category, Location } from '@app/shared/models';
 
 export enum StorageKey {
   CATEGORIES = 'CATEGORIES',
+  LOCATIONS = 'LOCATIONS',
 }
 
 interface StorageKeyType {
   [StorageKey.CATEGORIES]: Category[];
+  [StorageKey.LOCATIONS]: Location[];
 }
 
 @Injectable({ providedIn: 'root' })

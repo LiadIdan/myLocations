@@ -7,9 +7,14 @@
     </h1>
   </app-card-header>
   <app-card-body [formGroup]="form">
-    <div class="form-group">
-      <label class="required" for="name">Name</label>
-      <input id="name" type="text" class="form-control" formControlName="name" />
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xxl-4">
+        <div class="form-group">
+          <label class="required" for="name">Name</label>
+          <input id="name" type="text" class="form-control" formControlName="name" />
+          <app-form-control-errors controlName="name"></app-form-control-errors>
+        </div>
+      </div>
     </div>
 
     <button class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Save</button>

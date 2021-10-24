@@ -5,12 +5,16 @@
 
   <app-card-body>
     <ng-container *ngIf="category; else showLoader">
-      <ul>
-        <li>
-          <strong>Name</strong>
-          <span class="text-truncate">{{ category.name }}</span>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="col-12 col-lg-6 col-xxl-4">
+          <ul>
+            <li>
+              <strong>Name</strong>
+              <span class="text-truncate">{{ category.name }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </ng-container>
 
     <ng-template #showLoader>

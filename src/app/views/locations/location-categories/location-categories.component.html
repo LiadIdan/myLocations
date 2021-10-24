@@ -1,0 +1,9 @@
+<ng-container *ngIf="categoryIds.length; else showNoCategoriesBadge">
+  <div class="badge badge-primary mr-1" *ngFor="let id of categoryIds">
+    {{ id | categoryIdToName | async }}
+  </div>
+</ng-container>
+
+<ng-template #showNoCategoriesBadge>
+  <div class="badge badge-danger">No Categories</div>
+</ng-template>
